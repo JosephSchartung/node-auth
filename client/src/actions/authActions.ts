@@ -9,7 +9,7 @@ import {
     USER_LOADING
 } from './types';
 
-export const registerUser = (userData: IRegisterUser, history:any) => (dispatch:any) => {
+export const registerUser: RegisterUser = (userData: IRegisterUser, history:any) => (dispatch:any) => {
     axios
         .post("/api/users/register", userData)
         .then(res => history.push("/login"))

@@ -1,23 +1,43 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
+import { connect } from "react-redux";
+import PropTypes from 'prop-types';
+
+import { loginUser } from "../actions/authActions";
+import withRouter from '../utils/withRouter';
 
 interface Props {
 
+}
+
+interface IMapStateToProps {
+    auth: IAuth,
+    errors: object
+}
+interface IMapDispatchToProps {
+    loginUser: LoginUser
 }
 interface State {
     username: string,
     password: string,
     errors: any,
+    history: NavigateFunction
 }
 
-class Login extends Component<Props, State> {
-    constructor(props: Props) {
+class Login extends Component<Props & IMapStateToProps, State> {
+    static propTypes = {
+        loginUser: PropTypes.func.isRequired,
+        auth: PropTypes.object.isRequired,
+        errors: PropTypes.object.isRequired
+    }
+    constructor(props: Props & IMapStateToProps) {
         super(props);
         this.state = {
             username: "",
             password: "",
-            errors: {}
+            errors: {},
+            history: useNavigate()
         };
     }
 
@@ -39,6 +59,7 @@ class Login extends Component<Props, State> {
             username: this.state.username,
             password: this.state.password,
         }
+        loginUser(userData);
     }
 
     render() {
@@ -101,4 +122,11 @@ class Login extends Component<Props, State> {
         )
     }
 }
-export default Login;
+const mapStateToProps = (state:any) => ({
+    auth: state.auth,
+    errors: state.errors
+})
+export default connect<IMapStateToProps, IMapDispatchToProps>(
+    mapStateToProps,
+    { loginUser }
+)(withRouter(Login));

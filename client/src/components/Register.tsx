@@ -1,9 +1,22 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
+import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+
+import { registerUser } from "../actions/authActions";
+import withRouter from '../utils/withRouter';
 
 interface Props {
 
+}
+
+interface IMapStateToProps {
+    auth: IAuth,
+    errors: object,
+}
+interface IMapDispatchToProps {
+    registerUser: RegisterUser
 }
 interface State {
     name:string,
@@ -11,17 +24,30 @@ interface State {
     password:string,
     password2:string,
     errors:any,
+    history: NavigateFunction
 }
 
-class Register extends Component<Props, State> {
-    constructor(props: Props) {
+class Register extends Component<Props&IMapStateToProps, State> {
+    static propTypes = {
+        registerUser: PropTypes.func.isRequired,
+        auth: PropTypes.object.isRequired,
+        errors: PropTypes.object.isRequired
+    }
+    constructor(props: Props & IMapStateToProps) {
         super(props);
         this.state = {
             name: "",
             username: "",
             password: "",
             password2: "",
-            errors: {}
+            errors: {},
+            history: useNavigate()
+        }
+    }
+
+    componentDidMount() {
+        if(this.props.auth.isAuthenticated) {
+            this.state.history("/dashboard");
         }
     }
 
@@ -42,6 +68,7 @@ class Register extends Component<Props, State> {
             username: this.state.username,
             password: this.state.password,
         }
+        registerUser(newUser, this.state.history);
     };
 
     render() {
@@ -117,4 +144,13 @@ class Register extends Component<Props, State> {
         )
     }
 }
-export default Register;
+
+const mapStateToProps = (state:any) => ({
+    auth: state.auth,
+    errors: state.errors
+})
+
+export default connect<IMapStateToProps,IMapDispatchToProps>(
+    mapStateToProps,
+    { registerUser }
+)(withRouter(Register));

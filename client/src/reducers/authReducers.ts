@@ -5,9 +5,12 @@ import {
 
 import isEmpty from 'is-empty';
 
-const initialState = {
+const initialState: IAuth = {
     isAuthenticated: false,
-    user: {},
+    user: {
+        name:"",
+        username:"",
+    },
     loading: false
 };
 
