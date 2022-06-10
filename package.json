@@ -1,0 +1,17 @@
+{
+  "name": "node-auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/JosephSchartung/node-auth.git",
+  "author": "Joseph Schartung <104148306+JosephSchartung@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "client-install": "yarn install --prefix client",
+    "server": "cd server && yarn run dev",
+    "client": "cd client && yarn run start",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\""
+  },
+  "dependencies": {
+    "concurrently": "^7.2.1"
+  }
+}
