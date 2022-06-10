@@ -1,6 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
+import passport from "passport";
+
+import passportMiddleware from "./middleware/passportMiddleware.js";
+import UserRouter from './routes/api/UserRouter.js';
 
 const app = express();
 
@@ -10,6 +14,12 @@ dotenv.config();
 const db = process.env.MONGO_URI;
 
 const PORT = process.env.port || 8080;
+
+app.use(passport.initialize());
+passportMiddleware(passport);
+
+// Routes
+app.use("/api/users", UserRouter);
 
 app.listen(PORT, () => {
     mongoose.connect(db, 
