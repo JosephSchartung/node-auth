@@ -1,12 +1,14 @@
 import User from '../models/User.js';
+import bcrypt from 'bcryptjs';
 import { validateRegisterInput } from '../valdiators/Register.js';
 
 export default  (req, res) => {
     const { errs, isValid } = validateRegisterInput(req.body);
-
     if(!isValid) {
+        console.log(errs);
         return res.status(400).json(errs);
     };
+
 
     User.findOne({ username: req.body.username }, (user => {
         if(user){
@@ -21,11 +23,14 @@ export default  (req, res) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if(err) throw err;
                     newUser.password = hash;
-                    newUser.save((user) => {
-                        res.json(user);
-                    }, (err) => {
-                        console.error(err);
-                    })
+                    newUser
+                        .save()
+                        .then(updatedUser => {
+                            res.json(updatedUser);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        });
                 })
             })
         }

@@ -1,6 +1,10 @@
 import User from "../models/User.js";
 import { validateLoginInput } from '../valdiators/Login.js';
+import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default (req, res) => {
     const { errs, isValid } = validateLoginInput(req.body);
@@ -34,7 +38,7 @@ export default (req, res) => {
                 // next, sign the token.
                 jwt.sign(
                     payload, 
-                    secretOrKey,
+                    process.env.secretOrKey,
                     {
                         expiresIn: 31556926
                     },

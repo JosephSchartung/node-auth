@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, NavigateFunction, useNavigate } from "react-router-dom";
+import { Link, NavigateFunction } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
@@ -8,7 +8,7 @@ import { registerUser } from "../actions/authActions";
 import withRouter from '../utils/withRouter';
 
 interface Props {
-
+    history: NavigateFunction
 }
 
 interface IMapStateToProps {
@@ -24,16 +24,15 @@ interface State {
     password:string,
     password2:string,
     errors:any,
-    history: NavigateFunction
 }
 
-class Register extends Component<Props&IMapStateToProps, State> {
+class Register extends Component<Props&IMapStateToProps&IMapDispatchToProps, State> {
     static propTypes = {
         registerUser: PropTypes.func.isRequired,
         auth: PropTypes.object.isRequired,
         errors: PropTypes.object.isRequired
     }
-    constructor(props: Props & IMapStateToProps) {
+    constructor(props: Props & IMapStateToProps & IMapDispatchToProps) {
         super(props);
         this.state = {
             name: "",
@@ -41,24 +40,20 @@ class Register extends Component<Props&IMapStateToProps, State> {
             password: "",
             password2: "",
             errors: {},
-            history: useNavigate()
         }
     }
 
     componentDidMount() {
         if(this.props.auth.isAuthenticated) {
-            this.state.history("/dashboard");
+            this.props.history("/dashboard");
         }
     }
 
     onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.currentTarget.value;
-        const stateToChange = e.currentTarget.id;
-        this.setState((prevState) => {
-            return {
-                ...prevState,
-                stateToChange: newValue
-            };
+        const { id, value } = e.currentTarget;
+        this.setState({
+            ...this.state,
+            [id]: value
         })
     }
     onSubmit = (e:any) => {
@@ -67,8 +62,9 @@ class Register extends Component<Props&IMapStateToProps, State> {
             name: this.state.name,
             username: this.state.username,
             password: this.state.password,
+            password2: this.state.password2,
         }
-        registerUser(newUser, this.state.history);
+        this.props.registerUser(newUser, this.props.history);
     };
 
     render() {

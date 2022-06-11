@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Landing from './components/Landing';
 import Register from './components/Register'
 import Login from './components/Login';
+import Dashboard from './components/Dashboard';
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
                 <Route path="/" element={<Landing />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
           </div>
         </Router>
@@ -28,4 +30,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App; 

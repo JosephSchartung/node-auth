@@ -1,5 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import { NavigateFunction } from "react-router-dom";
 
 import setAuthToken from "../utils/setAuthToken";
 
@@ -9,10 +10,10 @@ import {
     USER_LOADING
 } from './types';
 
-export const registerUser: RegisterUser = (userData: IRegisterUser, history:any) => (dispatch:any) => {
+export const registerUser: RegisterUser = (userData: IRegisterUser, history:NavigateFunction) => (dispatch:any) => {
     axios
         .post("/api/users/register", userData)
-        .then(res => history.push("/login"))
+        .then(res => history("/login"))
         .catch(err => 
             dispatch({
                 type:GET_ERRORS,
@@ -52,7 +53,7 @@ export const setUserLoading = () => {
     }
 };
 
-export const logoutUser = () => (dispatch:any) => {
+export const logoutUser: LogoutUser = () => (dispatch:any) => {
     localStorage.removeItem("jwtToken");
     setAuthToken(false);
     dispatch(setCurrentUser({}));

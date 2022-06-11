@@ -13,6 +13,7 @@ interface IRegisterUser {
     name: string,
     username: string,
     password: string,
+    password2: string,
 }
 
 interface IAuth {
@@ -23,3 +24,4 @@ interface IAuth {
 
 type RegisterUser = (userData:IRegisterUser, history:NavigateFunction) => (dispatch:Dispatch) => void;
 type LoginUser = (newUser: ILoginUser) => (dispatch: Dispatch) => void;
+type LogoutUser = () => void;

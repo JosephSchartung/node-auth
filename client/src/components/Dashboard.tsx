@@ -4,9 +4,10 @@ import { connect } from "react-redux";
 
 import { logoutUser } from "../actions/authActions";
 import withRouter from "../utils/withRouter";
+import { NavigateFunction } from "react-router-dom";
 
 interface Props {
-
+    history: NavigateFunction
 }
 interface State {
 
@@ -14,23 +15,30 @@ interface State {
 interface IMapStateToProps {
     auth: IAuth
 }
+interface IMapDispatchToProps {
+    logoutUser: LogoutUser;
+}
 
-class Dashboard extends Component<Props & IMapStateToProps, State> {
+class Dashboard extends Component<Props & IMapStateToProps & IMapDispatchToProps, State> {
     static propTypes = {
         logoutUser: PropTypes.func.isRequired,
         auth: PropTypes.object.isRequired,
         errors: PropTypes.object.isRequired
     }
-    constructor(props:Props & IMapStateToProps) {
+    constructor(props:Props & IMapStateToProps & IMapDispatchToProps) {
         super(props);
     }
     onLogoutClick = (e:any) => {
         e.preventDefault();
-        logoutUser();
+        this.props.logoutUser();
     }
 
     render() {
-        const { user } = this.props.auth;
+        const { isAuthenticated, user } = this.props.auth;
+        console.log(user);
+        if(!isAuthenticated) {
+            this.props.history("/");
+        }
         return (
             <div className="container">
                 <div className="valign-wrapper">
@@ -39,7 +47,7 @@ class Dashboard extends Component<Props & IMapStateToProps, State> {
                             <h4>
                                 <b>Hey</b>, {user.name}
                                 <p className="flow-text black-text">
-                                    You are authenticated 👍
+                                    You are authenticated 🔓
                                 </p>
                             </h4>
                             <button
