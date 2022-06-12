@@ -22,6 +22,13 @@ interface IAuth {
     loading: boolean
 }
 
+interface IJwtToken {
+    id:string
+    name: string,
+    iat:number,
+    exp: number,
+}
+
 type RegisterUser = (userData:IRegisterUser, history:NavigateFunction) => (dispatch:Dispatch) => void;
 type LoginUser = (newUser: ILoginUser) => (dispatch: Dispatch) => void;
 type LogoutUser = () => void;

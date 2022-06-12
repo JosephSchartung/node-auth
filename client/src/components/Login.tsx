@@ -61,6 +61,7 @@ class Login extends Component<Props & IMapStateToProps & IMapDispatchToProps, St
             password: this.state.password,
         }
         this.props.loginUser(userData);
+        this.props.history("/dashboard");
     }
 
     render() {

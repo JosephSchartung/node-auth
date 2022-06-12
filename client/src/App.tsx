@@ -9,6 +9,22 @@ import Landing from './components/Landing';
 import Register from './components/Register'
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import setAuthToken from './utils/setAuthToken';
+import jwtDecode from 'jwt-decode';
+import { logoutUser, setCurrentUser } from './actions/authActions';
+
+
+if(localStorage.jwtToken){
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  const decoded = jwtDecode<IJwtToken>(token);
+  store.dispatch(setCurrentUser(decoded));
+  const curTime = Date.now()/1000;
+  if(decoded.exp < curTime) {
+    store.dispatch(logoutUser());
+    window.location.href = "./login";
+  }
+}
 
 class App extends Component {
   render() {

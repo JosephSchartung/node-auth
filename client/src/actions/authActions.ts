@@ -29,7 +29,7 @@ export const loginUser = (userData:ILoginUser) => (dispatch:any) => {
             const { token } = res.data;
             localStorage.setItem("jwtToken", token);
             setAuthToken(token);
-            const decoded = jwtDecode(token);
+            const decoded = jwtDecode<IJwtToken>(token);
             dispatch(setCurrentUser(decoded));
         })
         .catch(err =>
@@ -40,7 +40,7 @@ export const loginUser = (userData:ILoginUser) => (dispatch:any) => {
         );
 };
 
-export const setCurrentUser = (decoded:any) => {
+export const setCurrentUser = (decoded:IJwtToken|object) => {
     return {
         type: SET_CURRENT_USER,
         payload: decoded
