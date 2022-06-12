@@ -1,7 +1,40 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavigateFunction } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-class Landing extends Component {
+import withRouter from '../utils/withRouter';
+
+interface Props {
+    history: NavigateFunction
+}
+interface State {
+
+}
+
+interface IMapStateToProps {
+    auth: IAuth,
+    errors: object
+}
+
+class Landing extends Component<Props & IMapStateToProps, State> {
+    static propTypes = {
+        auth: PropTypes.object.isRequired,
+        errors: PropTypes.object.isRequired
+    }
+
+    constructor(props: Props&IMapStateToProps) {
+        super(props);
+        this.state = {
+
+        }
+    }
+
+    componentDidMount() {
+        if(this.props.auth.isAuthenticated) {
+            this.props.history("/dashboard");
+        }
+    }
     render() {
         return (
             <div className="container">
@@ -45,4 +78,12 @@ class Landing extends Component {
     }
 }
 
-export default Landing;
+const mapStateToProps = (state: any) => ({
+    auth: state.auth,
+    errors: state.errors,
+})
+
+export default connect<IMapStateToProps, {}>(
+    mapStateToProps,
+    {}
+)(withRouter(Landing));

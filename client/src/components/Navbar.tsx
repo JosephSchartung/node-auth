@@ -7,7 +7,7 @@ class Navbar extends Component {
         return(
             <div className="navbar-fixed">
                 <nav>
-                    <div className="nav-wrapper">
+                    <div className="nav-wrapper deep-purple darken-4">
                         <Link to="/"
                             style={{
                                 fontFamily: "monospace"
