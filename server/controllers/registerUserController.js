@@ -1,6 +1,6 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
-import { validateRegisterInput } from '../valdiators/Register.js';
+import { validateRegisterInput } from '../validators/Register.js';
 
 export default  (req, res) => {
     const { errs, isValid } = validateRegisterInput(req.body);

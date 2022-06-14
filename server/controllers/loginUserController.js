@@ -1,5 +1,5 @@
 import User from "../models/User.js";
-import { validateLoginInput } from '../valdiators/Login.js';
+import { validateLoginInput } from '../validators/Login.js';
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs';
 import dotenv from "dotenv";
