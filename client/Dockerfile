@@ -1,7 +1,7 @@
 FROM node:alpine
 WORKDIR /usr/src/client
-COPY package.json /usr/src/client
-COPY yarn.lock /usr/src/client/
+COPY package.json ./
+COPY yarn.lock ./
 RUN yarn install
-COPY . /usr/src/client/
-CMD ["yarn", "run start"]
+COPY . .
+CMD ["yarn", "start"]

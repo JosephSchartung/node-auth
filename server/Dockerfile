@@ -4,4 +4,4 @@ COPY package.json /usr/src/server/
 COPY yarn.lock /usr/src/server/
 RUN yarn install
 COPY . /usr/src/server/
-CMD ["yarn", "run start"]
+CMD ["yarn", "start"]
