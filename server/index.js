@@ -3,17 +3,17 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import passport from "passport";
 
+import { db } from './config/db.config.js';
 import passportMiddleware from "./middleware/passportMiddleware.js";
 import UserRouter from './routes/api/UserRouter.js';
 
 const app = express();
 
 app.use(express.json());
-dotenv.config();
+dotenv.config({path: '../.env'});
 
-const db = process.env.MONGO_URI;
 
-const PORT = process.env.port || 8080;
+const PORT = process.env.NODE_DOCKER_PORT;
 
 app.use(passport.initialize());
 passportMiddleware(passport);
@@ -22,7 +22,7 @@ passportMiddleware(passport);
 app.use("/api/users", UserRouter);
 
 app.listen(PORT, () => {
-    mongoose.connect(db, 
+    mongoose.connect(db.url, 
         { useNewUrlParser: true}    
     )
     .then(() => {
