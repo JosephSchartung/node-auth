@@ -27,3 +27,8 @@ type AuthType = {
     user: UserType,
     loading: boolean,
 }
+
+type State = {
+    auth: AuthType
+    errors: any
+}
