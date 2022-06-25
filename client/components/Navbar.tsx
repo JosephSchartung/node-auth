@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
 
-import { MdMenu, MdEnhancedEncryption, MdSupervisedUserCircle } from "react-icons/md";
+import { MdMenu, MdEnhancedEncryption, MdArrowRight } from "react-icons/md";
 import NavbarItem from "./NavbarItem";
 
 const Navbar: NextPage = () => {
@@ -29,8 +29,11 @@ const Navbar: NextPage = () => {
                 </button>
                 <div className={`${showNavbar ? "" : "hidden" } w-full lg:inline-flex lg:flex-grow lg:w-auto`}>
                     <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start flex flex-col lg:h-auto">
+                        
                         <NavbarItem link={"/login"} text={"Login"} />
-                        <NavbarItem link={"/register"} text={"Register"} />
+                        <NavbarItem link={"/register"} text={"Register"} 
+                        icon={<MdArrowRight />}
+                        />
                     </div>
                 </div>
             </nav>
