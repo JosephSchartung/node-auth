@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
     "axios": "^0.27.2",
     "is-empty": "^1.2.0",
     "jwt-decode": "^3.1.2",
@@ -21,9 +22,11 @@
     "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
+    "@types/is-empty": "^1.2.1",
     "@types/node": "18.0.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
+    "@types/redux": "^3.6.0",
     "autoprefixer": "^10.4.7",
     "eslint": "8.18.0",
     "eslint-config-next": "12.1.6",
