@@ -1,43 +1,32 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { useState } from "react";
 
 import { MdMenu, MdEnhancedEncryption, MdArrowRight } from "react-icons/md";
+import { useSelector } from "react-redux";
+import AuthenticatedNavbarItems from "./AuthenticatedNavbarItems";
+import NavbarButton from "./NavbarButton";
 import NavbarItem from "./NavbarItem";
 
 const Navbar: NextPage = () => {
-    const [showNavbar, setShowNavbar] = useState(false);
-    const toggleNavbar = () => {
-        setShowNavbar(!showNavbar);
-    }
+    const state: State = useSelector((state: State) => state);
     return (
-        <>
-            <nav className="flex items-center flex-wrap bg-purple-400 p-3">
-                <Link href="/" >
-                    <a className="inline-flex items-center p-2 mr-4">
-                        <MdEnhancedEncryption size={50}/>
-                        <span className="text-xl text-white font-bold uppercase tracking-wide">
+        <header className="text-gray-400 bg-gray-900 body-font">
+            <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+                <Link href="" >
+                    <a className="flex title-font font-medium items-center text-white mb-4 md:mb-0">
+                        <MdEnhancedEncryption size={50} />
+                        <span className="ml-3 text-xl">
                             Node-Auth
                         </span>
-                    </a>
+                    </a>     
                 </Link>
-                <button
-                    className="inline-flex p-3 hover:bg-gray-900 rounded lg:hidden text-white ml-auto hover:text-white outline-none"
-                    onClick={toggleNavbar}
-                >
-                    <MdMenu />
-                </button>
-                <div className={`${showNavbar ? "" : "hidden" } w-full lg:inline-flex lg:flex-grow lg:w-auto`}>
-                    <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start flex flex-col lg:h-auto">
-                        
-                        <NavbarItem link={"/login"} text={"Login"} />
-                        <NavbarItem link={"/register"} text={"Register"} 
-                        icon={<MdArrowRight />}
-                        />
-                    </div>
-                </div>
-            </nav>
-        </>
+                <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
+                    <NavbarItem text="Login" link="/login" />
+                    {state.auth.isAuthenticated && <AuthenticatedNavbarItems />}
+                </nav>
+                <NavbarButton text="Register" link="/register" icon={<MdArrowRight/>} />
+            </div>
+        </header>
     )
 }
 
