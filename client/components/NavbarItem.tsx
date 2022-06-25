@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { IconType } from "react-icons";
 
 type Props = {
     text: string,
