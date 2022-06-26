@@ -6,4 +6,5 @@ import FormSubmitButton from "./FormSubmitButton";
 import Hero from "./Hero";
 import DefaultNavbarItems from "./DefaultNavbarItems";
 import Features from "./Features";
-export { AuthenticatedNavbarItems, Navbar, NavbarItem, TextInput, FormSubmitButton, Hero, DefaultNavbarItems, Features };
+import Footer from "./Footer";
+export { AuthenticatedNavbarItems, Navbar, NavbarItem, TextInput, FormSubmitButton, Hero, DefaultNavbarItems, Features, Footer };
