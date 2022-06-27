@@ -12,6 +12,7 @@ const app = express();
 app.use(express.json());
 dotenv.config({path: '../.env'});
 
+console.log(db.url);
 
 const PORT = process.env.NODE_DOCKER_PORT;
 
