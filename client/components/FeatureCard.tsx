@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import React from "react";
 import { ReactElement } from "react";
 import { TbArrowRight } from "react-icons/tb";
 
@@ -10,8 +11,13 @@ type FeatureCardProps = {
     link: string
 }
 
-const FeatureCard: NextPage<FeatureCardProps> = ({ tech, icon, title, description, link }) => {
-    return (
+class FeatureCard extends React.Component<FeatureCardProps> {
+    constructor(props:FeatureCardProps){
+        super(props);
+    }
+    render() {
+        const { tech, icon, title, description, link } = this.props;
+        return(
             <div className="p-4 md:w-1/3 flex flex-col text-center items-center">
                 <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-gray-800 text-purple-400 mb-5 flex-shrink-0">
                     {icon}
@@ -30,7 +36,8 @@ const FeatureCard: NextPage<FeatureCardProps> = ({ tech, icon, title, descriptio
                     </a>
                 </div>
             </div>
-    )
+        )
+    }
 }
 
 export default FeatureCard;

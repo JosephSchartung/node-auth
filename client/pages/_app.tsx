@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import App from "next/app";
 import { Footer, Navbar } from '../components';
 
 import store from '../redux/store';
@@ -7,11 +7,12 @@ import { Provider } from "react-redux";
 import { setAuthToken } from '../utils';
 import jwtDecode from 'jwt-decode';
 import { logoutUser, setCurrentUser } from '../redux/actions/authActions';
-import { useEffect } from 'react';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  // using useEffect here ensures that localStorage is defined before attempting to access it.
-  useEffect(() => {
+export default class MyApp extends App {
+  constructor(props:any) {
+    super(props);
+  }
+  componentDidMount() {
     if(localStorage.jwtToken) {
       const token = localStorage.jwtToken;
       setAuthToken(token);
@@ -23,16 +24,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         window.location.href = "./login"
       }
     }
-  })
-  return(
+  }
+
+  render() {
+    const { Component, pageProps } = this.props;
+    return (
     <Provider store={store}>
-      <Navbar />
+      <Navbar isAuthenticated={false}/>
       <Component {...pageProps} />
       <Footer />
     </Provider>
-  )
-
-  
+    )
+  }
 }
-
-export default MyApp
