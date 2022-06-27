@@ -6,7 +6,9 @@
   "author": "Joseph Schartung <104148306+JosephSchartung@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "client-install": "yarn install --prefix client",
+    "client-install": "cd client && yarn install",
+    "server-install": "cd server && yarn install",
+    "install": "concurrently \"yarn run client-install\" \"yarn run server-install\"",
     "server": "cd server && yarn run dev",
     "client": "cd client && yarn run start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\""
