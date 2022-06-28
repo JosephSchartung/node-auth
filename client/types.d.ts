@@ -35,3 +35,7 @@ type ReduxProps = {
 
 type RegisterUser = (userData: RegisterUserData, history: NextRouter) => void;
 type LoginUser = (userData: LoginUserData, history: NextRouter) => void;
+
+interface WithRouterProps {
+    history: NextRouter
+}

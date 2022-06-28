@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { NextRouter, useRouter, withRouter } from "next/router";
+import { NextRouter, withRouter } from "next/router";
 import PropTypes from "prop-types";
 import React from 'react';
 import { compose } from "redux";
@@ -11,9 +11,8 @@ import { loginUser } from "../../redux/actions/authActions"
 interface LoginProps extends ReduxProps, MapDispatchToProps, WithRouterProps {
 
 }
-interface WithRouterProps {
-    history: NextRouter
-}
+
+
 interface LoginState {
     username: string,
     password: string,

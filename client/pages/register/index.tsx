@@ -13,10 +13,6 @@ interface RegisterProps extends ReduxProps, MapDispatchToProps, WithRouterProps 
 
 }
 
-type WithRouterProps = {
-    history: NextRouter
-}
-
 type RegisterState = {
     name: string,
     username: string,

@@ -19,7 +19,7 @@ export const registerUser = (userData: RegisterUserData, history:NextRouter) => 
         .catch(err => 
             dispatch({
                 type:GET_ERRORS,
-                payload: err.response.data
+                payload: err.response
             })
         );
 }
