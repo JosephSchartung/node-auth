@@ -8,14 +8,15 @@ import { connect } from "react-redux";
 import { FormSubmitButton, TextInput } from '../../components';
 import { loginUser } from "../../redux/actions/authActions"
 
-interface LoginProps extends ReduxProps, MapDispatchToProps {
+interface LoginProps extends ReduxProps, MapDispatchToProps, WithRouterProps {
 
 }
-
+interface WithRouterProps {
+    history: NextRouter
+}
 interface LoginState {
     username: string,
     password: string,
-    history: NextRouter,
 }
 
 type MapDispatchToProps = {
@@ -33,13 +34,12 @@ class Login extends React.Component<LoginProps, LoginState> {
         this.state = {
             username: "",
             password: "",
-            history: useRouter()
         }
     }
 
     componentDidMount() {
         if(this.props.auth.isAuthenticated) {
-            this.state.history.push("/dashboard");
+            this.props.history.push("/dashboard");
         }
     }
 
@@ -60,7 +60,7 @@ class Login extends React.Component<LoginProps, LoginState> {
             username: this.state.username,
             password: this.state.password
         }
-        this.props.loginUser(newUser, this.state.history);
+        this.props.loginUser(newUser, this.props.history);
     }
 
     render() {

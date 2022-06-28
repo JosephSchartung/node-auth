@@ -9,8 +9,12 @@ import { registerUser } from '../../redux/actions/authActions';
 import { compose } from 'redux';
 
 
-interface RegisterProps extends ReduxProps, MapDispatchToProps {
+interface RegisterProps extends ReduxProps, MapDispatchToProps, WithRouterProps {
 
+}
+
+type WithRouterProps = {
+    history: NextRouter
 }
 
 type RegisterState = {
@@ -18,7 +22,6 @@ type RegisterState = {
     username: string,
     password: string,
     password2: string,
-    history: NextRouter
 }
 
 type MapDispatchToProps = {
@@ -37,14 +40,13 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             name: "",
             username: "",
             password: "",
-            password2: "",
-            history: useRouter(),
+            password2: ""
         }
     }
 
     componentDidMount() {
         if(this.props.auth.isAuthenticated) {
-            this.state.history.push("/dashboard");
+            this.props.history.push("/dashboard");
         }
     }
 
@@ -67,7 +69,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             password: this.state.password,
             password2: this.state.password2,
         }
-        this.props.registerUser(newUser, this.state.history)
+        this.props.registerUser(newUser, this.props.history)
     }
 
     render() {
